@@ -9,6 +9,8 @@ env:
   RELEASE_TITLE: "BlackHosts"
   RELEASE_FILE: "./docs/md/release.md"
   PRERELEASE_FILE: "./docs/md/pre-release.md"
+  CHANGELOG_FILE: "./docs/md/changelog.md"
+  SUPPORT_FILE: "./docs/md/support.md"
   PRERELEASE: true
 
 jobs:
@@ -38,9 +40,9 @@ jobs:
             release_file=${{ env.RELEASE_FILE }}
           fi
           if [[ -n "$release_file" ]]; then
-            release_body=$(cat $release_file)
+            release_body="$(cat "$release_file" "${{ env.CHANGELOG_FILE }}" "${{ env.SUPPORT_FILE }}")"
           else
-            release_body=${{ env.RELEASE_TITLE }}
+            release_body="$(cat "${{ env.CHANGELOG_FILE }}" "${{ env.SUPPORT_FILE }}")"
           fi
           {
             echo "body<<EOF"
