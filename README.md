@@ -355,7 +355,6 @@ Current project links.
 |Main repository.|[https://github.com/Lateralus138/blackhosts](https://github.com/Lateralus138/blackhosts)|
 |Main repository - themed version.|[https://lateralus138.github.io/blackhosts](https://lateralus138.github.io/blackhosts)|
 |Current Releases|[https://github.com/Lateralus138/blackhosts/releases](https://github.com/Lateralus138/blackhosts/releases)|
-|Stable Release|[https://github.com/Lateralus138/blackhosts/releases/tag/1.0.109134](https://github.com/Lateralus138/blackhosts/releases/tag/1.0.109134)|
 
 ---
 
