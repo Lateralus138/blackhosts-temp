@@ -385,10 +385,10 @@ Current project links.
 |Name|Status|MD5|
 |:---:|:---:|:---:|
 |Code Quality|![](https://img.shields.io/codefactor/grade/github/Lateralus138/blackhosts/master?style=for-the-badge)|NA|
-|Linux: `Build`/`Publish`|![blackhosts - Rust Build - Linux](https://img.shields.io/github/workflow/status/Lateralus138/blackhosts/Linux%20Build/master?style=for-the-badge)|![Linux MD5](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/Lateralus138/blackhosts/master/docs/json/blackhosts_linux_md5.json)|
-|Debian: `Build`/`Publish`|![blackhosts - Rust Build - Debian](https://img.shields.io/github/workflow/status/Lateralus138/blackhosts/Debian%20Build/master?style=for-the-badge)|![Linux MD5](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/Lateralus138/blackhosts/master/docs/json/blackhosts_debian_md5.json)|
-|Windows: `Build`/`Publish`|![blackhosts - Rust Build - Windows](https://img.shields.io/github/workflow/status/Lateralus138/blackhosts/Windows%20Build/master?style=for-the-badge)|![Linux MD5](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/Lateralus138/blackhosts/master/docs/json/blackhosts_windows_md5.json)|
-|MacOS: `Build`/`Publish`|![blackhosts - Rust Build - MacOS](https://img.shields.io/github/workflow/status/Lateralus138/blackhosts/MacOS%20Build/master?style=for-the-badge)|![Linux MD5](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/Lateralus138/blackhosts/master/docs/json/blackhosts_darwin_md5.json)|
+|Linux: `Build`/`Publish`|![blackhosts - Rust Build - Linux](https://img.shields.io/github/actions/workflow/status/Lateralus138/blackhosts/rust_linux.yml?style=for-the-badge)|![Linux MD5](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/Lateralus138/blackhosts/master/docs/json/blackhosts_linux_md5.json)|
+|Debian: `Build`/`Publish`|![blackhosts - Rust Build - Debian](https://img.shields.io/github/actions/workflow/status/Lateralus138/blackhosts/rust_debian.yml?style=for-the-badge)|![Linux MD5](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/Lateralus138/blackhosts/master/docs/json/blackhosts_debian_md5.json)|
+|Windows: `Build`/`Publish`|![blackhosts - Rust Build - Windows](https://img.shields.io/github/actions/workflow/status/Lateralus138/blackhosts/rust_windows.yml?style=for-the-badge)|![Linux MD5](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/Lateralus138/blackhosts/master/docs/json/blackhosts_windows_md5.json)|
+|MacOS: `Build`/`Publish`|![blackhosts - Rust Build - MacOS](https://img.shields.io/github/actions/workflow/status/Lateralus138/blackhosts/rust_macos.yml?style=for-the-badge)|![Linux MD5](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/Lateralus138/blackhosts/master/docs/json/blackhosts_darwin_md5.json)|
 
 <!-- #### Latest Branch Build Status
 
