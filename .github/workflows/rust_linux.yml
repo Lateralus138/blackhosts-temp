@@ -12,12 +12,17 @@ env:
   PRERELEASE: true
 
 jobs:
-  build_test:
-    name: Build Test 2
+  build_and_release:
+    name: Build And Release Linux
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
     steps:
       - name: Checkout
         uses: actions/checkout@v7
+        with:
+          ref: ${{ github.head_ref }}
+          persist-credentials: true
       - name: Toolchain Setup
         uses: actions-rs/toolchain@v1.0.7
         with:
@@ -47,6 +52,7 @@ jobs:
           command: build
           args: --release
       - name: Move Linux Build
+        id: move-linux-build
         run: |
           build="./target/release/blackhosts"
           if [[ -x "$build" ]]; then
@@ -63,6 +69,17 @@ jobs:
           fi
           echo -e "$blackhosts_linux_md5_text" > docs/json/blackhosts_linux_md5.json
           sed -i "s/\"message\": \".*\"/\"message\": \"$(md5sum build/linux/blackhosts_linux | cut -d' ' -f 1)\"/g" docs/json/blackhosts_linux_md5.json
+          {
+            echo "checksum_timestamp<<EOF"
+            echo "$(date -u)"
+            echo "EOF"
+          } >> "$GITHUB_OUTPUT"
+      - name: Commit Checksum
+        uses: stefanzweifel/git-auto-commit-action@v7
+        if: github.ref_type == 'tag'
+        with:
+          commit_message: Commit linux build checksum file - ${{ steps.move-linux-build.outputs.checksum_timestamp }}.
+          file_pattern: docs/json/blackhosts_linux_md5.json
       - name: Release Linux
         uses: softprops/action-gh-release@v3
         if: github.ref_type == 'tag'
