@@ -6,7 +6,7 @@
 
 ### v1.0.0
 
-- Initial release (see [Project README](../../README.md) for details).
+- Initial release (see [Project README](../../) for details).
 
 ## Future Changes
 
