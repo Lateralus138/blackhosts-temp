@@ -363,7 +363,7 @@ Current project links.
 
 ### Overall Status
 
-![Readme Card](https://github-readme-stats.vercel.app/api/pin/?username=Lateralus138&repo=blackhosts)
+![Readme Card](https://github-stats-extended.vercel.app/api/pin/?username=Lateralus138&repo=blackhosts&theme=synthwave)
 
 |Description|Status|
 |:---:|:---:|
