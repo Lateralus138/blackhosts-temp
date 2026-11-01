@@ -21,8 +21,9 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v7
         with:
-          ref: ${{ github.head_ref }}
           persist-credentials: true
+          ref: master
+          fetch-depth: 0
       - name: Toolchain Setup
         uses: actions-rs/toolchain@v1.0.7
         with:
