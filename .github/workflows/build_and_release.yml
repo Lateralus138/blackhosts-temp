@@ -146,4 +146,4 @@ jobs:
       - name: Temp Test
         run: |
           Get-ChildItem
-          ${{ github.ref_name }}
+          echo "${{ github.ref_name }}"
