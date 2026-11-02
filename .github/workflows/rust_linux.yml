@@ -86,9 +86,47 @@ jobs:
           name: ${{ env.RELEASE_TITLE }}
           prerelease: ${{ env.PRERELEASE }}
           body: ${{ steps.pre-setup.outputs.body }}
-      - name: Commit Checksum
+      - name: Commit Linux Checksum
         uses: stefanzweifel/git-auto-commit-action@v7
         if: github.ref_type == 'tag' && steps.release-linux.outcome == 'success'
         with:
           commit_message: Commit linux build checksum file - ${{ steps.move-linux-build.outputs.checksum_timestamp }}.
           file_pattern: docs/json/blackhosts_linux_sha256.json
+
+      - name: Setup Debian Package Build
+        run: |
+          if ! [[ -d "./debian/usr/bin" ]]; then
+            mkdir -p "./debian/usr/bin" || exit 254
+          fi
+          if ! [[ -d "./build/debian" ]]; then
+            mkdir -p "./build/debian" || exit 253
+          fi
+          cp "./build/linux/blackhosts_linux" "./debian/usr/bin/blackhosts" || exit 252
+          dpkg-deb --build "./debian" "./build/debian/blackhosts.deb" || exit 251
+          blackhosts_debian_sha256_text='{\n\t"schemaVersion": 1,\n\t"color": "00aedb",\n\t"label": "blackhosts.deb SHA256",\n\t"message": "PLACEHOLDER",\n\t"labelColor": "1d1d1d",\n\t"style": "for-the-badge",\n\t"namedLogo": "debian"\n}'
+          if ! [[ -d "docs/json" ]]; then
+            mkdir -p docs/json
+          fi
+          if ! [[ -f "docs/json/blackhosts_debian_sha256.json" ]]; then
+            touch docs/json/blackhosts_debian_sha256.json
+          fi
+          echo -e "$blackhosts_debian_sha256_text" > docs/json/blackhosts_debian_sha256.json
+          sed -i "s/\"message\": \".*\"/\"message\": \"$(sha256sum build/debian/blackhosts.deb | cut -d' ' -f 1)\"/g" docs/json/blackhosts_debian_sha256.json
+
+      - name: Release Debian
+        id: release-debian
+        uses: softprops/action-gh-release@v3
+        if: github.ref_type == 'tag'
+        with:
+          files: |
+            build/debian/blackhosts.deb
+          name: ${{ env.RELEASE_TITLE }}
+          prerelease: ${{ env.PRERELEASE }}
+          body: ${{ steps.pre-setup.outputs.body }}
+
+      - name: Commit Debian Checksum
+        uses: stefanzweifel/git-auto-commit-action@v7
+        if: github.ref_type == 'tag' && steps.release-debian.outcome == 'success'
+        with:
+          commit_message: Commit debian build checksum file - ${{ steps.move-linux-build.outputs.checksum_timestamp }}.
+          file_pattern: docs/json/blackhosts_debian_sha256.json
