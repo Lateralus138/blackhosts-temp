@@ -1,4 +1,4 @@
-name: Linux Build
+name: Project Build
 on:
   push:
     branches:
@@ -14,7 +14,7 @@ env:
   PRERELEASE: true
 
 jobs:
-  build_and_release:
+  linux_and_debian_build_and_release:
     name: Build And Release Linux
     runs-on: ubuntu-latest
     permissions:
@@ -26,10 +26,10 @@ jobs:
           persist-credentials: true
           ref: master
           fetch-depth: 0
-      - name: Toolchain Setup
-        uses: actions-rs/toolchain@v1.0.7
-        with:
-          toolchain: stable
+# - name: Toolchain Setup
+#   uses: actions-rs/toolchain@v1.0.7
+#   with:
+#     toolchain: stable
       - name: Pre-Setup
         id: pre-setup
         run: |
@@ -49,11 +49,19 @@ jobs:
             echo "$release_body"
             echo "EOF"
           } >> "$GITHUB_OUTPUT"
-      - name: Cargo Build Linux
-        uses: actions-rs/cargo@v1.0.3
+  # - name: Cargo Build Linux
+  #   uses: actions-rs/cargo@v1.0.3
+  #   with:
+  #     command: build
+  #     args: --release
+      - name: Cargo Toolchain Setup
+      - uses: actions-rust-lang/setup-rust-toolchain@v2
         with:
-          command: build
-          args: --release
+          toolchain: stable
+
+      - name: Cargo Build Linux
+        run: cargo build --release
+
       - name: Move Linux Build
         id: move-linux-build
         run: |
@@ -77,13 +85,8 @@ jobs:
             echo "$(date -u)"
             echo "EOF"
           } >> "$GITHUB_OUTPUT"
-      - name: Commit Checksum
-        uses: stefanzweifel/git-auto-commit-action@v7
-        if: github.ref_type == 'tag'
-        with:
-          commit_message: Commit linux build checksum file - ${{ steps.move-linux-build.outputs.checksum_timestamp }}.
-          file_pattern: docs/json/blackhosts_linux_sha256.json
       - name: Release Linux
+        id: release-linux
         uses: softprops/action-gh-release@v3
         if: github.ref_type == 'tag'
         with:
@@ -93,3 +96,9 @@ jobs:
           name: ${{ env.RELEASE_TITLE }}
           prerelease: ${{ env.PRERELEASE }}
           body: ${{ steps.pre-setup.outputs.body }}
+      - name: Commit Checksum
+        uses: stefanzweifel/git-auto-commit-action@v7
+        if: github.ref_type == 'tag' && steps.release-linux.outcome == 'success'
+        with:
+          commit_message: Commit linux build checksum file - ${{ steps.move-linux-build.outputs.checksum_timestamp }}.
+          file_pattern: docs/json/blackhosts_linux_sha256.json
