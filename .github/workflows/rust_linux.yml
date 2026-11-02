@@ -26,10 +26,6 @@ jobs:
           persist-credentials: true
           ref: master
           fetch-depth: 0
-# - name: Toolchain Setup
-#   uses: actions-rs/toolchain@v1.0.7
-#   with:
-#     toolchain: stable
       - name: Pre-Setup
         id: pre-setup
         run: |
@@ -49,11 +45,6 @@ jobs:
             echo "$release_body"
             echo "EOF"
           } >> "$GITHUB_OUTPUT"
-  # - name: Cargo Build Linux
-  #   uses: actions-rs/cargo@v1.0.3
-  #   with:
-  #     command: build
-  #     args: --release
       - name: Cargo Toolchain Setup
         uses: actions-rust-lang/setup-rust-toolchain@v2
         with:
@@ -90,7 +81,6 @@ jobs:
         uses: softprops/action-gh-release@v3
         if: github.ref_type == 'tag'
         with:
-          draft: false
           files: |
             build/linux/blackhosts_linux
           name: ${{ env.RELEASE_TITLE }}
