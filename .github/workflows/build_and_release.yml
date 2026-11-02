@@ -1,4 +1,4 @@
-name: Project Build
+name: Project Build And Release
 on:
   push:
     branches:
@@ -130,3 +130,20 @@ jobs:
         with:
           commit_message: Commit debian build checksum file - ${{ steps.move-linux-build.outputs.checksum_timestamp }}.
           file_pattern: docs/json/blackhosts_debian_sha256.json
+
+  windows_build_and_release:
+    name: Build And Release Windows
+    runs-on: windows-latest
+    permissions:
+      contents: write
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v7
+        with:
+          persist-credentials: true
+          ref: master
+          fetch-depth: 0
+      - name: Temp Test
+        run: |
+          Get-ChildItem
+          ${{ github.ref_name }}
