@@ -102,7 +102,7 @@ jobs:
             mkdir -p "./build/debian" || exit 253
           fi
           cp "./build/linux/blackhosts_linux" "./debian/usr/bin/blackhosts" || exit 252
-          dpkg-deb --build "./debian" "./build/debian/blackhosts.deb" || exit 251
+          dpkg-deb --root-owner-group --build "./debian" "./build/debian/blackhosts.deb" || exit 251
           blackhosts_debian_sha256_text='{\n\t"schemaVersion": 1,\n\t"color": "00aedb",\n\t"label": "blackhosts.deb SHA256",\n\t"message": "PLACEHOLDER",\n\t"labelColor": "1d1d1d",\n\t"style": "for-the-badge",\n\t"namedLogo": "debian"\n}'
           if ! [[ -d "docs/json" ]]; then
             mkdir -p docs/json
