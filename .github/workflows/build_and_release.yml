@@ -40,6 +40,12 @@ jobs:
           else
             release_body="$(cat "${{ env.CHANGELOG_FILE }}" "${{ env.SUPPORT_FILE }}")"
           fi
+          if [[ "$GITHUB_REF_TYPE" == "tag" ]]; then
+              VERSION="${GITHUB_REF_NAME#v}"
+          else
+              VERSION="0.0.0"
+          fi
+          sed -i -E "s/^version = \"[^\"]+\"$/version = \"$VERSION\"/" Cargo.toml
           {
             echo "body<<EOF"
             echo "$release_body"
@@ -51,7 +57,7 @@ jobs:
           toolchain: stable
 
       - name: Cargo Build Linux
-        run: cargo build --release
+        run: cargo build --release --all-features
 
       - name: Move Linux Build
         id: move-linux-build
@@ -175,6 +181,15 @@ jobs:
           $releaseBody = ($files | ForEach-Object {
               Get-Content -Path $_ -Raw
           }) -join "`n"
+          if ($env:GITHUB_REF_TYPE -eq "tag") {
+              $VERSION = $env:GITHUB_REF_NAME -replace '^v', ''
+          }
+          else {
+              $VERSION = "0.0.0"
+          }
+
+          (Get-Content Cargo.toml -Raw) -replace '(?m)^version = "[^"]+"$', "version = `"$VERSION`"" |
+              Set-Content Cargo.toml -NoNewline
           $delimiter = [guid]::NewGuid().ToString()
 
           @"
@@ -188,7 +203,7 @@ jobs:
           toolchain: stable
 
       - name: Cargo Build Windows
-        run: cargo build --release
+        run: cargo build --release --all-features
 
       - name: Move Windows Build
         id: move-windows-build
@@ -288,6 +303,12 @@ jobs:
           else
             release_body="$(cat "${{ env.CHANGELOG_FILE }}" "${{ env.SUPPORT_FILE }}")"
           fi
+          if [[ "$GITHUB_REF_TYPE" == "tag" ]]; then
+              VERSION="${GITHUB_REF_NAME#v}"
+          else
+              VERSION="0.0.0"
+          fi
+          sed -i '' -E "s/^version = \"[^\"]+\"$/version = \"$VERSION\"/" Cargo.toml
           {
             echo "body<<EOF"
             echo "$release_body"
@@ -299,7 +320,7 @@ jobs:
           toolchain: stable
 
       - name: Cargo Build MacOS
-        run: cargo build --release
+        run: cargo build --release --all-features
 
       - name: Move MacOS Build
         id: move-macos-build
