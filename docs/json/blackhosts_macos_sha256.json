@@ -1,8 +1,8 @@
 {
 	"schemaVersion": 1,
 	"color": "00aedb",
-	"label": "blackhosts_darwin SHA256",
-	"message": "33b923b967207c2249b9e77443396f14",
+	"label": "blackhosts_macos sha256",
+	"message": "PLACEHOLDER",
 	"labelColor": "1d1d1d",
 	"style": "for-the-badge",
 	"namedLogo": "apple"
