@@ -2,8 +2,8 @@
     "schemaVersion": 1,
     "color": "00aedb",
     "label": "blackhosts_windows.exe sha256",
-    "message": "dfde1881bef631cc8bcb18bae87e9fe73c093e20c158f4252831490003bd7f8e",
+    "message": "4755460434a3ba72233c347a65bd1b48901dff93cceb964ce70a7851c07468f8",
     "labelColor": "1d1d1d",
     "style": "for-the-badge",
-    "namedLogo": "linux"
+    "namedLogo": "windows"
 }
