@@ -387,7 +387,7 @@ Current project links.
 |Linux: `Build`/`Publish`|![blackhosts - Rust Build - Linux](https://img.shields.io/github/actions/workflow/status/Lateralus138/blackhosts/rust_linux.yml?style=for-the-badge)|![Linux sha256](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/Lateralus138/blackhosts/master/docs/json/blackhosts_linux_sha256.json)|
 |Debian: `Build`/`Publish`|![blackhosts - Rust Build - Debian](https://img.shields.io/github/actions/workflow/status/Lateralus138/blackhosts/rust_debian.yml?style=for-the-badge)|![Linux sha256](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/Lateralus138/blackhosts/master/docs/json/blackhosts_debian_sha256.json)|
 |Windows: `Build`/`Publish`|![blackhosts - Rust Build - Windows](https://img.shields.io/github/actions/workflow/status/Lateralus138/blackhosts/rust_windows.yml?style=for-the-badge)|![Linux sha256](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/Lateralus138/blackhosts/master/docs/json/blackhosts_windows_sha256.json)|
-|MacOS: `Build`/`Publish`|![blackhosts - Rust Build - MacOS](https://img.shields.io/github/actions/workflow/status/Lateralus138/blackhosts/rust_macos.yml?style=for-the-badge)|![Linux sha256](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/Lateralus138/blackhosts/master/docs/json/blackhosts_darwin_sha256.json)|
+|MacOS: `Build`/`Publish`|![blackhosts - Rust Build - MacOS](https://img.shields.io/github/actions/workflow/status/Lateralus138/blackhosts/rust_macos.yml?style=for-the-badge)|![Linux sha256](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/Lateralus138/blackhosts/master/docs/json/blackhosts_macos_sha256.json)|
 
 <!-- #### Latest Branch Build Status
 
@@ -418,7 +418,7 @@ If you like this project and care to donate to my ***PayPal***:
 
 Or ***Buy Me A Coffee*** if your prefer:
 
-[![Buy Me A Coffee](./docs/media/images/buymeacoffe_a.png)](https://www.buymeacoffee.com/ianalanpride)
+[![Buy Me A Coffee](docs/media/images/buymeacoffe_a.png)](https://www.buymeacoffee.com/ianalanpride)
 
 ---
 

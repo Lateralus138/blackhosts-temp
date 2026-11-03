@@ -102,6 +102,8 @@ jobs:
             mkdir -p "./build/debian" || exit 253
           fi
           cp "./build/linux/blackhosts_linux" "./debian/usr/bin/blackhosts" || exit 252
+          VERSION="${GITHUB_REF_NAME#v}"
+          sed -i "s/^Version:.*/Version: ${VERSION}/" debian/DEBIAN/control
           dpkg-deb --root-owner-group --build "./debian" "./build/debian/blackhosts.deb" || exit 251
           blackhosts_debian_sha256_text='{\n\t"schemaVersion": 1,\n\t"color": "00aedb",\n\t"label": "blackhosts.deb SHA256",\n\t"message": "PLACEHOLDER",\n\t"labelColor": "1d1d1d",\n\t"style": "for-the-badge",\n\t"namedLogo": "debian"\n}'
           if ! [[ -d "docs/json" ]]; then
@@ -193,7 +195,7 @@ jobs:
               Move-Item -LiteralPath $build -Destination $destination -Force
           }
           else {
-              exit 255
+              exit 250
           }
 
           $checksumFile = 'docs/json/blackhosts_windows_sha256.json'
@@ -206,7 +208,7 @@ jobs:
               "message": "PLACEHOLDER",
               "labelColor": "1d1d1d",
               "style": "for-the-badge",
-              "namedLogo": "linux"
+              "namedLogo": "windows"
           }
           '@
 
@@ -253,3 +255,82 @@ jobs:
         with:
           commit_message: Commit windows build checksum file - ${{ steps.move-windows-build.outputs.checksum_timestamp }}.
           file_pattern: docs/json/blackhosts_windows_sha256.json
+
+  macos_build_and_release:
+    name: Build And Release MacOS
+    runs-on: macos-latest
+    permissions:
+      contents: write
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v7
+        with:
+          persist-credentials: true
+          ref: master
+          fetch-depth: 0
+      - name: Pre-Setup MacOS
+        id: pre-setup-macos
+        run: |
+          mkdir -p build/macos
+          if ${{ env.PRERELEASE }}; then
+            release_file=${{ env.PRERELEASE_FILE }}
+          else
+            release_file=${{ env.RELEASE_FILE }}
+          fi
+          if [[ -n "$release_file" ]]; then
+            release_body="$(cat "$release_file" "${{ env.CHANGELOG_FILE }}" "${{ env.SUPPORT_FILE }}")"
+          else
+            release_body="$(cat "${{ env.CHANGELOG_FILE }}" "${{ env.SUPPORT_FILE }}")"
+          fi
+          {
+            echo "body<<EOF"
+            echo "$release_body"
+            echo "EOF"
+          } >> "$GITHUB_OUTPUT"
+      - name: Cargo Toolchain Setup
+        uses: actions-rust-lang/setup-rust-toolchain@v2
+        with:
+          toolchain: stable
+
+      - name: Cargo Build MacOS
+        run: cargo build --release
+
+      - name: Move MacOS Build
+        id: move-macos-build
+        run: |
+          build="./target/release/blackhosts"
+          if [[ -x "$build" ]]; then
+            mv "$build" build/macos/blackhosts_macos
+          else
+            exit 249
+          fi
+          blackhosts_macos_sha256_text='{\n\t"schemaVersion": 1,\n\t"color": "00aedb",\n\t"label": "blackhosts_macos sha256",\n\t"message": "PLACEHOLDER",\n\t"labelColor": "1d1d1d",\n\t"style": "for-the-badge",\n\t"namedLogo": "apple"\n}'
+          if ! [[ -d "docs/json" ]]; then
+            mkdir -p docs/json
+          fi
+          if ! [[ -f "docs/json/blackhosts_macos_sha256.json" ]]; then
+            touch docs/json/blackhosts_macos_sha256.json
+          fi
+          echo -e "$blackhosts_macos_sha256_text" > docs/json/blackhosts_macos_sha256.json
+          perl -pi -w -e "s/\"message\": \".*\"/\"message\": \"$(md5 -r build/macos/blackhosts_macos | cut -d' ' -f 1)\"/g" docs/json/blackhosts_macos_md5.json
+          {
+            echo "checksum_timestamp<<EOF"
+            echo "$(date -u)"
+            echo "EOF"
+          } >> "$GITHUB_OUTPUT"
+      - name: Release MacOS
+        id: release-macos
+        uses: softprops/action-gh-release@v3
+        if: github.ref_type == 'tag'
+        with:
+          files: |
+            build/macos/blackhosts_macos
+          name: ${{ env.RELEASE_TITLE }}
+          prerelease: ${{ env.PRERELEASE }}
+          body: ${{ steps.pre-setup-macos.outputs.body }}
+      - name: Commit MacOS Checksum
+        uses: stefanzweifel/git-auto-commit-action@v7
+        if: github.ref_type == 'tag' && steps.release-macos.outcome == 'success'
+        with:
+          commit_message: Commit macos build checksum file - ${{ steps.move-macos-build.outputs.checksum_timestamp }}.
+          file_pattern: docs/json/blackhosts_macos_sha256.json

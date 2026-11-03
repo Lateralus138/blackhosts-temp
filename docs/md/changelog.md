@@ -10,7 +10,7 @@
 
 ## Future Changes
 
-### v1.1.* -planned
+### v1.1.* - planned
 
 - Optimization/performance fixes.
 - Complete change/update to workflow build system.
