@@ -102,7 +102,11 @@ jobs:
             mkdir -p "./build/debian" || exit 253
           fi
           cp "./build/linux/blackhosts_linux" "./debian/usr/bin/blackhosts" || exit 252
-          VERSION="${GITHUB_REF_NAME#v}"
+          if [[ "$GITHUB_REF_TYPE" == "tag" ]]; then
+              VERSION="${GITHUB_REF_NAME#v}"
+          else
+              VERSION="0.0.0"
+          fi
           echo "${VERSION}"
           sed -i "s/^Version:.*/Version: ${VERSION}/" debian/DEBIAN/control
           dpkg-deb --root-owner-group --build "./debian" "./build/debian/blackhosts.deb" || exit 251
