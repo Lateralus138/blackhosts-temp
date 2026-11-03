@@ -1,10 +1,9 @@
 {
-  "schemaVersion": 1,
-  "color": "00aedb",
-  "label": "blackhosts_windows.exe SHA256",
-  "message": "28-C5-E0-7C-FD-69-C6-6B-A8-30-C5-59-9C-06-9B-4F",
-  "labelColor": "1d1d1d",
-  "style": "for-the-badge",
-  "namedLogo": "windows"
+    "schemaVersion": 1,
+    "color": "00aedb",
+    "label": "blackhosts_windows.exe sha256",
+    "message": "dfde1881bef631cc8bcb18bae87e9fe73c093e20c158f4252831490003bd7f8e",
+    "labelColor": "1d1d1d",
+    "style": "for-the-badge",
+    "namedLogo": "linux"
 }
-
