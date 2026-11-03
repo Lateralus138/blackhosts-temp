@@ -318,7 +318,7 @@ jobs:
             touch docs/json/blackhosts_macos_sha256.json
           fi
           echo -e "$blackhosts_macos_sha256_text" > docs/json/blackhosts_macos_sha256.json
-          perl -pi -w -e "s/\"message\": \".*\"/\"message\": \"$(md5 -r build/macos/blackhosts_macos | cut -d' ' -f 1)\"/g" docs/json/blackhosts_macos_md5.json
+          perl -pi -w -e "s/\"message\": \".*\"/\"message\": \"$(md5 -r build/macos/blackhosts_macos | cut -d' ' -f 1)\"/g" docs/json/blackhosts_macos_sha56.json
           {
             echo "checksum_timestamp<<EOF"
             echo "$(date -u)"
