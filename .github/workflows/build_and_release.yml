@@ -185,7 +185,7 @@ jobs:
       - name: Move Windows Build
         id: move-windows-build
         run: |
-          $build = './target/release/blackhost.exe'
+          $build = './target/release/blackhosts.exe'
           $destination = 'build/linux/blackhosts_windows.exe'
 
           if (Test-Path -LiteralPath $build -PathType Leaf) {
