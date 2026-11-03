@@ -2,7 +2,7 @@
 	"schemaVersion": 1,
 	"color": "00aedb",
 	"label": "blackhosts.deb SHA256",
-	"message": "29ffd6b96f177fdae7f1bdea62793c5bbf4c62dbb34260131a9c3168b65faa36",
+	"message": "350ef4ee765c5453a904f29f68d3bb135f333835cb9c22ba66b87fbb3ec618b7",
 	"labelColor": "1d1d1d",
 	"style": "for-the-badge",
 	"namedLogo": "debian"
