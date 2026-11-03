@@ -147,22 +147,23 @@ jobs:
       - name: Pre-Setup
         id: pre-setup-windows
         run: |
-          mkdir -p build/windows
-          if ${{ env.PRERELEASE }}; then
-            release_file=${{ env.PRERELEASE_FILE }}
-          else
-            release_file=${{ env.RELEASE_FILE }}
-          fi
-          if [[ -n "$release_file" ]]; then
-            release_body="$(cat "$release_file" "${{ env.CHANGELOG_FILE }}" "${{ env.SUPPORT_FILE }}")"
-          else
-            release_body="$(cat "${{ env.CHANGELOG_FILE }}" "${{ env.SUPPORT_FILE }}")"
-          fi
-          {
-            echo "body<<EOF"
-            echo "$release_body"
-            echo "EOF"
-          } >> "$GITHUB_OUTPUT"
+          Get-ChildItem
+# mkdir -p build/windows
+# if ${{ env.PRERELEASE }}; then
+#   release_file=${{ env.PRERELEASE_FILE }}
+# else
+#   release_file=${{ env.RELEASE_FILE }}
+# fi
+# if [[ -n "$release_file" ]]; then
+#   release_body="$(cat "$release_file" "${{ env.CHANGELOG_FILE }}" "${{ env.SUPPORT_FILE }}")"
+# else
+#   release_body="$(cat "${{ env.CHANGELOG_FILE }}" "${{ env.SUPPORT_FILE }}")"
+# fi
+# {
+#   echo "body<<EOF"
+#   echo "$release_body"
+#   echo "EOF"
+# } >> "$GITHUB_OUTPUT"
       - name: Cargo Toolchain Setup
         uses: actions-rust-lang/setup-rust-toolchain@v2
         with:
