@@ -258,6 +258,7 @@ jobs:
 
   macos_build_and_release:
     name: Build And Release MacOS
+    needs: windows_build_and_release
     runs-on: macos-latest
     permissions:
       contents: write
