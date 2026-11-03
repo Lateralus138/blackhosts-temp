@@ -186,7 +186,7 @@ jobs:
         id: move-windows-build
         run: |
           $build = './target/release/blackhosts.exe'
-          $destination = 'build/linux/blackhosts_windows.exe'
+          $destination = 'build/windows/blackhosts_windows.exe'
 
           if (Test-Path -LiteralPath $build -PathType Leaf) {
               Move-Item -LiteralPath $build -Destination $destination -Force
