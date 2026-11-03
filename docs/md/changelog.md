@@ -1,5 +1,9 @@
 ## Changelog
 
+### v1.0.1793744309
+
+- Changed Rust build to statically link openssl. This is for the sake of the Linux build and the only alterntive is to package in a container which I do not want to at this time.
+
 ### v1.0.109134
 
 - Changed the versioning system.
@@ -15,6 +19,6 @@
 - Optimization/performance fixes.
 - Complete change/update to workflow build system.
 
-### v2.0.0 - planned
+### v2.0.* - planned
 
 - Changing delivery system to libcurl (currently JSDELIVR).
